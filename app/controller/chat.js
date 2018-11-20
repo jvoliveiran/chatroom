@@ -6,6 +6,13 @@ module.exports.loadChat = function(application,req,res){
 
   const erros = req.validationErrors()
 
+  const notificationData = {
+    nickname: dadosForm.nickname,
+    mensagem: ' acabou de entrar no chat'
+  }
+  
+  application.get('io').emit('userNotification', notificationData)
+
   if(erros){
     console.log(erros)
     res.render('index', {erros})
